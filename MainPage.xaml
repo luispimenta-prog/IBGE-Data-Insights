@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:IbgeNomes.Models"
+             x:Class="IbgeNomes.Views.MainPage" Title="Nomes por Localidade">
+  <ScrollView>
+    <VerticalStackLayout Padding="16" Spacing="10">
+      <Label Text="Tipo de localidade"/>
+      <Picker x:Name="PickerTipo" SelectedIndexChanged="OnTipoChanged">
+        <Picker.ItemsSource>
+          <x:Array Type="{x:Type x:String}"><x:String>Estado</x:String><x:String>Município</x:String></x:Array>
+        </Picker.ItemsSource>
+      </Picker>
+      <Label Text="Estado"/>
+      <Picker x:Name="PickerEstado" ItemsSource="{Binding Estados}" SelectedIndexChanged="OnEstadoChanged"/>
+      <Label Text="Município" IsVisible="{Binding MostrarMunicipio}"/>
+      <Picker x:Name="PickerMunicipio" ItemsSource="{Binding Municipios}"
+              IsVisible="{Binding MostrarMunicipio}" SelectedIndexChanged="OnMunicipioChanged"/>
+      <ActivityIndicator IsRunning="{Binding Carregando}" IsVisible="{Binding Carregando}"/>
+      <Label Text="{Binding Erro}" TextColor="Red"/>
+
+      <Label Text="👨 Nomes masculinos" FontAttributes="Bold" FontSize="18"/>
+      <VerticalStackLayout BindableLayout.ItemsSource="{Binding Homens}">
+        <BindableLayout.ItemTemplate><DataTemplate x:DataType="m:NomeFrequencia"><Label Text="{Binding Descricao}"/></DataTemplate></BindableLayout.ItemTemplate>
+      </VerticalStackLayout>
+
+      <Label Text="👩 Nomes femininos" FontAttributes="Bold" FontSize="18"/>
+      <VerticalStackLayout BindableLayout.ItemsSource="{Binding Mulheres}">
+        <BindableLayout.ItemTemplate><DataTemplate x:DataType="m:NomeFrequencia"><Label Text="{Binding Descricao}"/></DataTemplate></BindableLayout.ItemTemplate>
+      </VerticalStackLayout>
+
+      <Label Text="👪 Sobrenomes" FontAttributes="Bold" FontSize="18"/>
+      <VerticalStackLayout BindableLayout.ItemsSource="{Binding Sobrenomes}">
+        <BindableLayout.ItemTemplate><DataTemplate x:DataType="m:NomeFrequencia"><Label Text="{Binding Descricao}"/></DataTemplate></BindableLayout.ItemTemplate>
+      </VerticalStackLayout>
+    </VerticalStackLayout>
+  </ScrollView>
+</ContentPage>
